@@ -16,21 +16,16 @@ class LinkedList {
         this.length++;
         const newNode = new ListNode(data);
 
-
-
         if (this.head == null) {
             this.head = newNode;
         }
         else {
             let currentNode = this.head;
-
             while (currentNode.nextNode != null) {
                 currentNode = currentNode.nextNode;
             }
+            currentNode.nextNode = newNode;
 
-            if (currentNode.nextNode == null) {
-                currentNode.nextNode = newNode;
-            }
         }
     }
 
@@ -38,45 +33,44 @@ class LinkedList {
         return this.length;
     }
 
-    head() {
+    getHead() {
         return this.head;
     }
 
     tail() {
         let tailNode = this.head;
 
-        if (tailNode.nextNode == null) {
-            return tailNode;
+
+
+
+        while (tailNode.nextNode != null) {
+            tailNode = tailNode.nextNode;
         }
 
-        else {
-            while (tailNode.nextNode != null) {
-                tailNode = tailNode.nextNode;
-            }
-        }
 
         return tailNode;
     }
 
     at(index) {
-        if (index == 0) {
-            return this.head;
+        if (index >= this.length) {
+            return new Error("Index out of bounce")
         }
         else {
-            let count = 0;
-            let currentNode = this.head;
-            while (count != index) {
-
-                if (index >= this.length) {
-                    return new Error("Index out of bounce")
+            if (index == 0) {
+                return this.head;
+            }
+            else {
+                let count = 0;
+                let currentNode = this.head;
+                while (count != index) {
+                    currentNode = currentNode.nextNode;
+                    count++;
                 }
 
-                currentNode = currentNode.nextNode;
-                count++;
+                return currentNode;
             }
-
-            return currentNode;
         }
+
     }
 
     pop() {
@@ -118,23 +112,16 @@ class LinkedList {
     }
 
     contains(value) {
-        let contains = false;
-
         let currentNode = this.head;
 
-        while (currentNode.nextNode != null) {
+        while (currentNode != null) {
             if (currentNode.data == value) {
-                contains = true;
+                return true;
             }
-
             currentNode = currentNode.nextNode;
         }
 
-        if (currentNode.data == value) {
-            contains = true;
-        }
-
-        return contains;
+        return false;
     }
 
     find(value) {
@@ -158,21 +145,12 @@ class LinkedList {
         let linkedListOutPut = "";
         let currentNode = this.head;
 
-
-
-        while (currentNode.data != null) {
-            console.log(currentNode.data)
+        while (currentNode) {
             linkedListOutPut += `( ${currentNode.data} ) => `
-            if (currentNode.nextNode == null) {
-                break;
-            }
             currentNode = currentNode.nextNode;
 
         }
-
         linkedListOutPut += "( null )"
-
-
         return linkedListOutPut;
     }
 
@@ -182,12 +160,22 @@ class LinkedList {
 
 const linkedList = new LinkedList();
 linkedList.append("data");
+linkedList.append("sdaata");
+linkedList.append("dsadsadsaata");
+linkedList.append("dadssdasdasadasdadsta");
+
+
+console.log(linkedList.tail());
+
+console.log(linkedList.at(3));
+
 
 
 
 
 console.log(linkedList.toString())
 
+console.log(linkedList.contains("datdsadasdssda"));
 
 
 
