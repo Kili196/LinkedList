@@ -1,4 +1,4 @@
-class ListNode {
+export class ListNode {
     constructor(data) {
         this.data = data;
         this.nextNode = null;
@@ -177,7 +177,7 @@ console.log(linkedList.toString())
 
 console.log(linkedList.contains("datdsadasdssda"));
 
-
+export { LinkedList as linkedlist }
 
 
 
