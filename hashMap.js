@@ -163,9 +163,12 @@ class LinkedList {
 
 class HashMap {
     constructor() {
-        this.capacity = 7;
-        this.loadFactor = 0.75;
         this.hashMap = [[], [], [], [], [], [], []];
+        this.loadFactor = 0.75;
+        this.capacity = this.hashMap.length * this.loadFactor;
+
+
+
     }
 
     hash(key) {
@@ -180,25 +183,40 @@ class HashMap {
     }
 
     set(key, value) {
-        let bucketIndex = this.hash(key) % this.capacity;
-        let bucketValue = new LinkedList();
-        bucketValue.append({ [key]: value });
+        const hash = this.hash(key);
+        const bucketIndex = hash % this.hashMap.length;
 
-        console.log(bucketValue)
-
-
-        if (this.hashMap[bucketIndex][0] != null) {
-
-            let currentNode = this.hashMap[bucketIndex][0];
-            currentNode.append(bucketValue);
-            return;
+        if (this.hashMap[bucketIndex][0] == null) {
+            let linkedListOfValues = new LinkedList();
+            linkedListOfValues.append({ [key]: value });
+            this.hashMap[bucketIndex][0] = linkedListOfValues;
+        }
+        else {
+            let linkedListOfValues = this.hashMap[bucketIndex][0];
+            linkedListOfValues.append({ [key]: value });
         }
 
-        this.hashMap[bucketIndex][0] = bucketValue;
+
 
     }
 
-    resizedMap(size) {
+    resizeMap() {
+        this.capacity = this.capacity * 2;
+        this.hashMap = new Array();
+
+
+        this.entries = new Array();
+
+        for (let i = 0; i < this.capacity; i++) {
+            this.hashMap.push(new Array());
+        }
+
+
+
+    }
+
+    entries() {
+        console.log(this.entries)
 
     }
 }
@@ -209,18 +227,10 @@ const hashMap = new HashMap();
 
 
 hashMap.set("Hallo", "Kili");
-hashMap.set("Halloo", "Kili")
-hashMap.set("Hallodso", "Kili")
-hashMap.set("Hallsdadasoo", "Kili")
-hashMap.set("Hasadlloo", "Kili")
-hashMap.set("Halldsadsaoo", "Kili")
-hashMap.set("Hallddsadsaoo", "Kili")
-hashMap.set("Hdalldsadsaoo", "Kili")
-hashMap.set("Halldsadsadoo", "Kili")
-hashMap.set("Hallddsasadsaoo", "Kili")
+hashMap.set("Hallo", "Kili");
+
 
 console.log(hashMap);
-
 
 
 
