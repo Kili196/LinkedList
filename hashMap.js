@@ -203,7 +203,7 @@ class HashMap {
 
         const entry = { [key]: value }
 
-        console.log(entry);
+
         if (this.hashMap[bucketIndex][0] == null) {
 
             let linkedListOfValues = new LinkedList();
@@ -240,14 +240,30 @@ class HashMap {
 
     resizeMap() {
         this.capacity = this.capacity * 2;
-        console.log(this.entries());
+        this.length = 0;
+        let entries = hashMap.getEntries();
+        this.hashMap = [];
+        for (let i = 0; i < this.capacity; i++) {
+            this.hashMap.push(new Array());
+        }
+
+
+        entries.forEach((entries) => {
+            entries.forEach((entry) => {
+
+                hashMap.set(Object.keys(entry)[0], Object.entries(entry)[0]);
+            })
+
+        })
+
+
 
 
 
 
     }
 
-    entries() {
+    getEntries() {
         let entries = [];
 
         this.hashMap.forEach((entry) => {
@@ -274,6 +290,10 @@ hashMap.set("drei", "Kili");
 hashMap.set("vier", "Kili");
 hashMap.set("fünf", "Kili");
 hashMap.set("six", "Kili");
+hashMap.set("ssdaix", "Kili");
+hashMap.set("sasddsax", "Kili");
+hashMap.set("sidsadsaasdx", "Kili");
+hashMap.set("sidsadsaasdx", "Kasdsadili");
 
 
 console.log(hashMap)
