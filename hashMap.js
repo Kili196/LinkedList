@@ -167,10 +167,8 @@ class HashMap {
     constructor() {
         this.hashMap = [[], [], [], [], [], [], []];
         this.loadFactor = 0.75;
-        this.capacity = this.hashMap.length * this.loadFactor;
-
-
-
+        this.capacity = 7;
+        this.length = 0;
     }
 
     hash(key) {
