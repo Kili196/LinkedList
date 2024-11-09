@@ -164,6 +164,8 @@ linkedList.append("sdaata");
 linkedList.append("dsadsadsaata");
 linkedList.append("dadssdasdasadasdadsta");
 
+linkedList.contains("Hallo")
+
 console.log(linkedList)
 
 

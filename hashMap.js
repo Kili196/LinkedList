@@ -117,8 +117,10 @@ class LinkedList {
     contains(value) {
         let currentNode = this.head;
 
+
+
         while (currentNode != null) {
-            if (currentNode.data == value) {
+            if (Object.keys(currentNode.data) == value) {
                 return true;
             }
             currentNode = currentNode.nextNode;
@@ -135,7 +137,7 @@ class LinkedList {
         let currentNode = this.head;
         let count = 0;
 
-        while (currentNode.data != value) {
+        while (Object.keys(currentNode.data) != value) {
             count++;
             currentNode = currentNode.nextNode;
         }
@@ -173,7 +175,6 @@ class HashMap {
 
     hash(key) {
         let hashCode = 0;
-
         const primeNumber = 31;
         for (let i = 0; i < key.length; i++) {
             hashCode = primeNumber * hashCode + key.charCodeAt(i);
@@ -186,18 +187,29 @@ class HashMap {
         const hash = this.hash(key);
         const bucketIndex = hash % this.hashMap.length;
 
+        const entry = { [key]: value }
+
         if (this.hashMap[bucketIndex][0] == null) {
             let linkedListOfValues = new LinkedList();
-            linkedListOfValues.append({ [key]: value });
+            linkedListOfValues.append(entry);
             this.hashMap[bucketIndex][0] = linkedListOfValues;
         }
         else {
             let linkedListOfValues = this.hashMap[bucketIndex][0];
-            linkedListOfValues.append({ [key]: value });
+            linkedListOfValues.at(linkedListOfValues.find(key)).data[key] = value;
         }
+    }
 
-
-
+    get(key) {
+        for (let i = 0; i < this.hashMap.length; i++) {
+            let foundLinkedList = this.hashMap[i][0];
+            if (foundLinkedList != null) {
+                if (foundLinkedList.contains(key)) {
+                    return foundLinkedList.at(foundLinkedList.find(key));
+                }
+                return null;
+            }
+        }
     }
 
     resizeMap() {
@@ -216,7 +228,7 @@ class HashMap {
     }
 
     entries() {
-        console.log(this.entries)
+
 
     }
 }
@@ -227,7 +239,9 @@ const hashMap = new HashMap();
 
 
 hashMap.set("Hallo", "Kili");
-hashMap.set("Hallo", "Kili");
+hashMap.set("Hallo", "Kidsadsali");
+
+
 
 
 console.log(hashMap);
