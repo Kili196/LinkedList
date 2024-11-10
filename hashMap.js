@@ -199,6 +199,7 @@ class HashMap {
         const hash = this.hash(key);
         const bucketIndex = hash % this.hashMap.length;
         const entry = { [key]: value }
+
         if (this.hashMap[bucketIndex][0] == null) {
             let linkedListOfValues = new LinkedList();
             linkedListOfValues.append(entry);
@@ -224,7 +225,7 @@ class HashMap {
             let foundLinkedList = this.hashMap[i][0];
             if (foundLinkedList != null) {
                 if (foundLinkedList.contains(key)) {
-                    return foundLinkedList.at(foundLinkedList.find(key));
+                    return (foundLinkedList.at(foundLinkedList.find(key))).data[key];
                 }
                 return null;
             }
@@ -235,20 +236,17 @@ class HashMap {
         this.capacity = this.capacity * 2;
         this.length = 0;
         let entries = hashMap.getEntries();
-        entries = new Array([].concat(...entries));
-
-        console.log(entries);
-
         this.hashMap = [];
+
         for (let i = 0; i < this.capacity; i++) {
-            this.hashMap.push(new Array());
+            this.hashMap.push([]);
         }
+
+
+
+
         entries.forEach((entries) => {
-            entries.forEach((entry) => {
-
-                hashMap.set(Object.keys(entry)[0], Object.entries(entry)[0]);
-            })
-
+            hashMap.set(Object.keys(entries)[0], Object.values(entries)[0]);
         })
 
     }
@@ -257,15 +255,44 @@ class HashMap {
         let entries = [];
 
         this.hashMap.forEach((entry) => {
+
             if (entry[0]) {
-                entries.push(entry[0].getNodeFromList());
+
+
+                entries.push(...entry[0].getNodeFromList());
+
             }
         })
 
 
 
 
+
         return entries;
+    }
+
+
+    length() {
+        return this.getEntries().length();
+    }
+    clear() {
+        this.hashMap = [[], [], [], [], [], [], []];
+        this.loadFactor = 0.75;
+        this.capacity = 7;
+        this.length = 0;
+    }
+
+    has(key) {
+        if (this.get(key) == null) {
+            return false;
+        }
+        return true;
+    }
+
+    values() {
+        return hashMap.getEntries().map((entry) => Object.values(entry)[0]);
+
+
     }
 }
 
@@ -280,16 +307,19 @@ hashMap.set("drei", "Kili");
 hashMap.set("vier", "Kili");
 hashMap.set("fünf", "Kili");
 hashMap.set("six", "Kili");
-hashMap.set("seven", "Kili");
-hashMap.set("seven", "Kisdli");
-hashMap.set("eight", "Kili");
-hashMap.set("nine", "Kili");
-hashMap.set("ten", "Kili");
-hashMap.set("eleven", "Kili");
 
 
 
-console.log(hashMap);
+
+
+
+
+console.log(hashMap.get("six"))
+console.log(hashMap.has("eins"))
+
+console.log(hashMap.values());
+hashMap.clear();
+console.log(hashMap)
 
 
 
