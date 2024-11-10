@@ -168,7 +168,6 @@ class LinkedList {
         while (currentNode) {
             entries.push(currentNode.data);
             currentNode = currentNode.nextNode;
-
         }
 
         return entries;
@@ -197,15 +196,10 @@ class HashMap {
     }
 
     set(key, value) {
-
         const hash = this.hash(key);
         const bucketIndex = hash % this.hashMap.length;
-
         const entry = { [key]: value }
-
-
         if (this.hashMap[bucketIndex][0] == null) {
-
             let linkedListOfValues = new LinkedList();
             linkedListOfValues.append(entry);
             this.hashMap[bucketIndex][0] = linkedListOfValues;
@@ -213,7 +207,6 @@ class HashMap {
         }
         else {
             let linkedListOfValues = this.hashMap[bucketIndex][0];
-
             if (linkedListOfValues.find(key) != null) {
                 linkedListOfValues.at(linkedListOfValues.find(key)).data[key] = value;
                 return;
@@ -242,12 +235,14 @@ class HashMap {
         this.capacity = this.capacity * 2;
         this.length = 0;
         let entries = hashMap.getEntries();
+        entries = new Array([].concat(...entries));
+
+        console.log(entries);
+
         this.hashMap = [];
         for (let i = 0; i < this.capacity; i++) {
             this.hashMap.push(new Array());
         }
-
-
         entries.forEach((entries) => {
             entries.forEach((entry) => {
 
@@ -255,11 +250,6 @@ class HashMap {
             })
 
         })
-
-
-
-
-
 
     }
 
@@ -272,10 +262,10 @@ class HashMap {
             }
         })
 
+
+
+
         return entries;
-
-
-
     }
 }
 
@@ -290,13 +280,16 @@ hashMap.set("drei", "Kili");
 hashMap.set("vier", "Kili");
 hashMap.set("fünf", "Kili");
 hashMap.set("six", "Kili");
-hashMap.set("ssdaix", "Kili");
-hashMap.set("sasddsax", "Kili");
-hashMap.set("sidsadsaasdx", "Kili");
-hashMap.set("sidsadsaasdx", "Kasdsadili");
+hashMap.set("seven", "Kili");
+hashMap.set("seven", "Kisdli");
+hashMap.set("eight", "Kili");
+hashMap.set("nine", "Kili");
+hashMap.set("ten", "Kili");
+hashMap.set("eleven", "Kili");
 
 
-console.log(hashMap)
+
+console.log(hashMap);
 
 
 
